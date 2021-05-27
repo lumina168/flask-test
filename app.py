@@ -14,9 +14,21 @@ def profile(username):
     return "ここは、"+username+"さんのプロフィールネームです"
 
 
+# @app.route('/temptest')
+# def temptest():
+#     return render_template('index.html')
+
+@app.route('/extendtest')
+def extendtest():
+    return render_template('extendtest.html')
+
+
 @app.route('/temptest')
 def temptest():
-    return render_template('index.html')
+    # ↑これが被ったらエラー起こす。だから上をメッセージ用にして消した
+    title = 'indexページ'
+    message = 'ここにはメッセージが入ります。ここにはメッセージが入ります。'
+    return render_template('index.html', title=title, message=message)
 
 if __name__ == "__main__":
     app.run(debug=True)
