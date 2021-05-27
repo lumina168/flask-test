@@ -23,11 +23,11 @@ def extendtest():
     return render_template('extendtest.html')
 
 
-@app.route('/temptest')
+@app.route('/weather')
 def temptest():
     # ↑これが被ったらエラー起こす。だから上をメッセージ用にして消した
-    title = 'indexページ'
-    message = 'ここにはメッセージが入ります。ここにはメッセージが入ります。'
+    title = '快晴〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜'
+    message = '今日の天気は〜〜〜〜〜〜〜〜'
     return render_template('index.html', title=title, message=message)
 
 if __name__ == "__main__":
