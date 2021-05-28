@@ -49,6 +49,27 @@ def dbtest():
     return render_template('db.html', user_info=user_info)
     # エラー分はしっかり見る（エラー分が出てくるから）
 
+
+@app.route('/dbkadai')
+def dbkadai():
+    # dbファイルに接続
+    conn = sqlite3.connect("flasktest.db")
+    c = conn.cursor()
+    # SQL分でデータを取り出し
+    c.execute("""task from users where id= 1""")
+    user_info = c.fetchone()
+    # dbファイルとの接続を終了
+    c.close()
+    # 取り出したデータの中身を確認
+    print(user_info)
+    return render_template('db.kadai.html', user_info=user_info)
+    # エラー分はしっかり見る（エラー分が出てくるから）
+
+
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
             #   ↑これがないと変更した時リロードしてもページ変わらない
