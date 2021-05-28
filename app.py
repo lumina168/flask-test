@@ -56,7 +56,7 @@ def dbkadai():
     conn = sqlite3.connect("flasktest.db")
     c = conn.cursor()
     # SQL分でデータを取り出し
-    c.execute("""task from users where id= 1""")
+    c.execute("""select task from task where id= 4""")
     user_info = c.fetchone()
     # dbファイルとの接続を終了
     c.close()
@@ -64,9 +64,6 @@ def dbkadai():
     print(user_info)
     return render_template('db.kadai.html', user_info=user_info)
     # エラー分はしっかり見る（エラー分が出てくるから）
-
-
-
 
 
 
