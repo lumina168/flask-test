@@ -8,9 +8,13 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    今日の天気は〇〇です
+    
     {% block content %}
     <!-- ここに個別部分が挿入される -->
+
+    <p>今日の天気は{{weather}}です</p>
+    
+
     {% endblock %}
 </body>
 </html>

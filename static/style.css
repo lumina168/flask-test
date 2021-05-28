@@ -1,7 +1,9 @@
 
 
 h1{
-    color: red;
+    color:black;
+    background-color: chartreuse;
+    text-align: center;
 }
 
 .header{
