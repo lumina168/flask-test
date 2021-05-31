@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>やること：{{task_list}}</h1>
+<!--               ↑コレで全て出る -->
+<table border="1">
+    <!-- ↑border="1"でライン入れる -->
+
+<!-- task_listら一つずつ取り出してitemに入れ繰り返す -->
+    {% for item in task_list %}
+    <!-- ↓やり方で１つずつ出す .
+    でも何回も修正することになるのでだめなやり方-->
+    
+
+    <tr>
+        <!-- この段階でitemには一つ分のdict -->
+        <!--ex.１回目の{"id":1,"task:"牛乳を買う"}  -->
+        <td>{{item["id"]}}</td>
+        <td>{{item["task"]}}</td>
+    </tr>
+    <!-- <tr>
+        <td>{{task_list[1]["id"]}}</td>
+        <td>{{task_list[1]["task"]}}</td>
+    </tr>
+    <tr>
+        <td>{{task_list[2]["id"]}}</td>
+        <td>{{task_list[2]["task"]}}</td>
+    </tr> -->
+
+    <!-- ↓{% for item in task_list %}書いたあとのおまじない↓ -->
+    {% endfor %}
+</table>
+{% endblock %}

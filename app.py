@@ -82,6 +82,33 @@ def dbkadai():
 # ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 
 
+# 5/31始める
+
+@app.route('/list')
+def list():
+ # dbファイルに接続
+    conn = sqlite3.connect("db...db")
+    c = conn.cursor()
+    # SQL分でデータを取り出し
+    c.execute("""select id, task from task2""")
+    # 空のリストを作成だけする
+    task_list = []
+    # fechallで全部取り出してfor文で①行ずつrowに渡す
+    for row in c.fetchall():
+        # ①行ずつdictにしてtask_listに追加していく
+        # row[0]→１rou[1]→焼き肉を食べる
+        task_list.append({"id":row[0],"task":row[1]})
+    # dbファイルとの接続を終了
+    c.close()
+    # 取り出したデータの中身を確認
+    print(task_list)
+    return render_template('db..html', task_list=task_list)
+    #return入れたら関数止まる
+    # エラー分はしっかり見る（エラー分が出てくるから）
+
+
+
+
 # flaskやるのにコレは必要↓おまじない②
 if __name__ == "__main__":
     app.run(debug=True)
