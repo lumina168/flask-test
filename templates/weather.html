@@ -1,10 +1,13 @@
 {% extends "base.html" %}
     <!-- ↑base.htmlへ結びつく -->
 {% block content %}
+<header>
 <h1>{{title}}</h1>
+<h1>{{weather}}</h1>
 <p>{{message}}</p>
 
-<h1>今日は結びつかせる勉強</h1>
-<p>index.htmlは、base.htmlを継承しています。</p>
 
+
+<p>今日の天気は{{weather}}です</p>
+</header>
 {% endblock %}

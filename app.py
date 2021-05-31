@@ -1,39 +1,55 @@
 from flask import Flask, render_template
 import sqlite3
 app = Flask(__name__)
+# flaskやるのにコレは必要おまじない①↑
 
+# ↓ここからそのままブラウザへ出力＃＃＃＃＃＃＃＃＃＃
 @app.route('/')
 def index():
-    return 'Index Page'
+    return 'Index Pageだよ'
 
 @app.route('/hello')
 def hello():
-    return 'Hello, World'
+    return 'Hello, Worldだよ'
+# ↑ここまでそのままブラウザへ出力
+# ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 
+
+
+
+# コレが解らない↓usernameどこから引っ張るんだっけ＃＃＃＃＃＃＃
 @app.route('/user/<username>')
 def profile(username):
-    return "ここは、"+username+"さんのプロフィールネームです"
+    return "ここは、" + username + "さんのプロフィールネームです"
+# ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 
 
+
+
+# index.htmlに結びつかせる↓＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 @app.route('/temptest')
 def temptest():
     return render_template('index.html')
+#                            ↑index.htmlに結びつかせる
 
 @app.route('/extendtest')
 def extendtest():
     return render_template('extendtest.html')
+# ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 
 
+# 
+# ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 @app.route('/weather')
 def weather():
-    # ↑これが被ったらエラー起こす。だから上をメッセージ用にして消した
-    weather = "快晴"
+    # ↑これが被ったらエラー起こす。
     title = '今日の天気は'
-    message = '快晴'
-    return render_template('index.html', title=title, message=message, weather=weather)
+    weather = "快晴"
+    message = 'です'
+    return render_template('weather.html', title=title, message=message, weather=weather)
+#    ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃↑どこと紐付けるか、、紐付けた先に出力titleにも反応
 
-
-
+# ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 @app.route('/dbtest')
 def dbtest():
     # dbファイルに接続
@@ -56,17 +72,20 @@ def dbkadai():
     conn = sqlite3.connect("flasktest.db")
     c = conn.cursor()
     # SQL分でデータを取り出し
-    c.execute("""select task from task where id= 4""")
+    c.execute("""select task from task where id= 3""")
     user_info = c.fetchone()
     # dbファイルとの接続を終了
     c.close()
     # 取り出したデータの中身を確認
     print(user_info)
     return render_template('db.kadai.html', user_info=user_info)
-    # エラー分はしっかり見る（エラー分が出てくるから）
+# ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 
 
-
+# flaskやるのにコレは必要↓おまじない②
 if __name__ == "__main__":
     app.run(debug=True)
             #   ↑これがないと変更した時リロードしてもページ変わらない
+
+
+# エラー分はしっかり見る（エラー分が出てくるから）

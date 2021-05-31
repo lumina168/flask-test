@@ -1,9 +1,13 @@
 
-
 h1{
     color:black;
-    background-color: chartreuse;
+    background-color: rgb(107, 190, 24);
     text-align: center;
+}
+
+
+p{
+    color: blue;
 }
 
 .header{
