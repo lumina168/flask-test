@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,request
 import sqlite3
 app = Flask(__name__)
 # flaskやるのにコレは必要おまじない①↑
@@ -82,7 +82,7 @@ def dbkadai():
 # ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 
 
-# 5/31始める
+# 5/31始める=================================================================================
 
 @app.route('/list')
 def list():
@@ -106,8 +106,17 @@ def list():
     #return入れたら関数止まる
     # エラー分はしっかり見る（エラー分が出てくるから）
 
-
-
+# =========================================================================================
+# /addにURLで入力されたときなどにこちらが動く
+@app.route('/add', methods=["GET"])
+def add_get():
+    return render_template("add.html")
+# /addのページで送信ボタンが押されたときなどにこちらが動く
+@app.route('/add', methods=["POST"])
+def add_post(): 
+    task = request.form.get("task")
+    return"データは「"+ task + "」"  
+# ==============================================================================
 
 # flaskやるのにコレは必要↓おまじない②
 if __name__ == "__main__":
