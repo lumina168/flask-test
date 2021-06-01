@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request,redirect
+from flask import Flask, render_template,request
 import sqlite3
 app = Flask(__name__)
 # flaskやるのにコレは必要おまじない①↑
@@ -125,35 +125,10 @@ def add_post():
     conn.commit()
     # dbファイルとの接続を終了
     c.close()
-    return "「"+ task + "」 というデータを書き込みました "
-    
+    return redirect ("/list")
 
 
 # ==============================================================================
-# /addにURLで入力されたときなどにこちらが動く
-# @app.route('/add', methods=["GET"])
-# def add_get():
-#     return render_template("add.html")
-# # /addのページで送信ボタンが押されたときなどにこちらが動く
-# @app.route('/add', methods=["POST"])
-# def add_post(): 
-#     task = request.form.get("task")
-#     print(task)
-#     # dbファイルに接続
-#     conn = sqlite3.connect("db...db")
-#     c = conn.cursor()
-#     # SQL分でデータを挿入
-#     c.execute("insert into task values (null, ?)", (task,))
-#     # dbに変更を書き込み
-#     conn.commit()
-#     #dbファイルとの接続を終了
-#     c.close()
-#     return redirect("/list")
-
-
-
-
-
 
 
 # flaskやるのにコレは必要↓おまじない②
