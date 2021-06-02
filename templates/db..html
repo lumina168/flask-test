@@ -2,7 +2,7 @@
 {% block content %}
 <h1>やること：{{task_list}}</h1>
 <!--               ↑コレで全て出る -->
-<table border="1">
+<table border="200">
     <!-- ↑border="1"でライン入れる -->
 
 <!-- task_listら一つずつ取り出してitemに入れ繰り返す -->
@@ -14,6 +14,8 @@
         <!--ex.１回目の{"id":1,"task:"牛乳を買う"}  -->
         <td>{{item["id"]}}</td>
         <td>{{item["task"]}}</td>
+        <td><a href="/edit/{{item['id']}}">編集</a></td>
+        <td><a href="/delete/{{item['id']}}">削除</a></td>
     </tr>
     {% endfor %}
 </table>
