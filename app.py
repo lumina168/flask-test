@@ -133,6 +133,23 @@ def add_post():
 def edit_get():
     return render_template("edit.html")
 
+@app.route('/edit', methods=["POST"])
+def edit_post(): 
+    task_id = request.form.get("task_id")
+    task = request.form.get("task")
+    print(task_id)
+    print(task)
+# # dbファイルに接続
+    conn = sqlite3.connect("flasktest.db")
+    c = conn.cursor()
+# # SQL分でデータを挿入↓データベースの中身
+    c.execute("update task set task = ? where id = ?",(task, task_id))
+# # dbに変更を書き込み
+    conn.commit()
+# # dbファイルとの接続を終了
+    c.close()
+    return redirect ("/list")
+
 
 
 
