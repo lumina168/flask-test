@@ -9,26 +9,16 @@
     {% for item in task_list %}
     <!-- ↓やり方で１つずつ出す .
     でも何回も修正することになるのでだめなやり方-->
-    
-
     <tr>
         <!-- この段階でitemには一つ分のdict -->
         <!--ex.１回目の{"id":1,"task:"牛乳を買う"}  -->
         <td>{{item["id"]}}</td>
         <td>{{item["task"]}}</td>
     </tr>
-    
-    <!-- <tr>
-        <td>{{task_list[1]["id"]}}</td>
-        <td>{{task_list[1]["task"]}}</td>
-    </tr>
-    <tr>
-        <td>{{task_list[2]["id"]}}</td>
-        <td>{{task_list[2]["task"]}}</td>
-    </tr> -->
-
-    <!-- ↓{% for item in task_list %}書いたあとのおまじない↓ -->
-<a href="/add">タスクの追加</a>
     {% endfor %}
 </table>
+
+<!-- ↓{% for item in task_list %}書いたあとのおまじない↓ -->
+<a href="/add">タスクの追加</a>
+<a href="/edit">タスクの編集</a>
 {% endblock %}

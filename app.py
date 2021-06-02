@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request,redirect
 import sqlite3
 app = Flask(__name__)
 # flaskやるのにコレは必要おまじない①↑
@@ -42,7 +42,7 @@ def extendtest():
 # ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 @app.route('/weather')
 def weather():
-    # ↑これが被ったらエラー起こす。
+# ↑これが被ったらエラー起こす。
     title = '今日の天気は'
     weather = "快晴"
     message = 'です'
@@ -52,15 +52,15 @@ def weather():
 # ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 @app.route('/dbtest')
 def dbtest():
-    # dbファイルに接続
+# dbファイルに接続
     conn = sqlite3.connect("flasktest.db")
     c = conn.cursor()
-    # SQL分でデータを取り出し
+# SQL分でデータを取り出し
     c.execute("""select name, age, address from users where id= 1""")
     user_info = c.fetchone()
-    # dbファイルとの接続を終了
+# dbファイルとの接続を終了
     c.close()
-    # 取り出したデータの中身を確認
+# 取り出したデータの中身を確認
     print(user_info)
     return render_template('db.html', user_info=user_info)
     # エラー分はしっかり見る（エラー分が出てくるから）
@@ -68,15 +68,15 @@ def dbtest():
 
 @app.route('/dbkadai')
 def dbkadai():
-    # dbファイルに接続
+# dbファイルに接続
     conn = sqlite3.connect("flasktest.db")
     c = conn.cursor()
-    # SQL分でデータを取り出し
-    c.execute("""select task from task where id= 3""")
+# SQL分でデータを取り出し
+    c.execute("""select task from task where id= 1""")
     user_info = c.fetchone()
-    # dbファイルとの接続を終了
+# dbファイルとの接続を終了
     c.close()
-    # 取り出したデータの中身を確認
+# 取り出したデータの中身を確認
     print(user_info)
     return render_template('db.kadai.html', user_info=user_info)
 # ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
@@ -86,25 +86,25 @@ def dbkadai():
 
 @app.route('/list')
 def list():
- # dbファイルに接続
-    conn = sqlite3.connect("db...db")
+# dbファイルに接続
+    conn = sqlite3.connect("flasktest.db")
     c = conn.cursor()
-    # SQL分でデータを取り出し
-    c.execute("""select id, task from task2""")
-    # 空のリストを作成だけする
+# SQL分でデータを取り出し
+    c.execute("""select id, task from task""")
+# 空のリストを作成だけする
     task_list = []
-    # fechallで全部取り出してfor文で①行ずつrowに渡す
+# fechallで全部取り出してfor文で①行ずつrowに渡す
     for row in c.fetchall():
-        # ①行ずつdictにしてtask_listに追加していく
-        # row[0]→１rou[1]→焼き肉を食べる
+# ①行ずつdictにしてtask_listに追加していく
+# row[0]→１rou[1]→焼き肉を食べる
         task_list.append({"id":row[0],"task":row[1]})
-    # dbファイルとの接続を終了
+# dbファイルとの接続を終了
     c.close()
-    # 取り出したデータの中身を確認
+# 取り出したデータの中身を確認
     print(task_list)
     return render_template('db..html', task_list=task_list)
-    #return入れたら関数止まる
-    # エラー分はしっかり見る（エラー分が出てくるから）
+#return入れたら関数止まる
+# エラー分はしっかり見る（エラー分が出てくるから）
 
 # =========================================================================================
 # /addにURLで入力されたときなどにこちらが動く
@@ -116,19 +116,25 @@ def add_get():
 def add_post(): 
     task = request.form.get("task")
     print(task)
-    # dbファイルに接続
+# dbファイルに接続
     conn = sqlite3.connect("flasktest.db")
     c = conn.cursor()
-    # SQL分でデータを挿入↓データベースの中身
+# SQL分でデータを挿入↓データベースの中身
     c.execute("insert into task values(null, ?)",(task, ))
-    # dbに変更を書き込み
+# dbに変更を書き込み
     conn.commit()
-    # dbファイルとの接続を終了
+# dbファイルとの接続を終了
     c.close()
     return redirect ("/list")
 
-
 # ==============================================================================
+# 6/2のやつ
+@app.route("/edit")
+def edit_get():
+    return render_template("edit.html")
+
+
+
 
 
 # flaskやるのにコレは必要↓おまじない②

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- <form action="/add" method="post">
+    <label>編集したいタスクのid<input type="text" name="task_id"></label>
+    <br/>
+    <label>編集後の値<input type="text" name="task" size="60" maxlength="100" /></label>
+    <input type="submit" value="押せ"/>
+    ↑やり方の違い
+</form> -->
+
+<form action="/edit" method="post">
+    <p>編集したいid</p>
+    <input type="text" name="task_id">
+    <br/>
+    <p>編集後のタスク</p>
+    <input type="text" name="task" size="60" maxlength="100" />
+    <input type="submit" value="編集する"/>
+</form>
+{% endblock %}
