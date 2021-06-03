@@ -56,7 +56,7 @@ def dbtest():
     conn = sqlite3.connect("flasktest.db")
     c = conn.cursor()
 # SQL分でデータを取り出し
-    c.execute("""select name, age, address from users where id= 1""")
+    c.execute("""select name, age, address from users_test where id= 1""")
     user_info = c.fetchone()
 # dbファイルとの接続を終了
     c.close()
