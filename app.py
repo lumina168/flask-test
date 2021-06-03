@@ -180,7 +180,27 @@ def delete_get(task_id):
 #     task_id = request.form.get("task_id")
 #     print(task_id)
 # ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+@app.route("/regist>")
+def regist_get():
+    return render_template("regist.html")
+# # dbファイルに接続
+    conn = sqlite3.connect("flasktest.db")
+    c = conn.cursor()
+# # SQL分でデータを挿入↓データベースの中身
+    c.execute("delete from task where id = ?",(task_id,))
+# # dbに変更を書き込み
+    conn.commit()
+# # dbファイルとの接続を終了
+    c.close()
+    return redirect ("/list")
 
+
+@app.route('/delete', methods=["POST"])
+def delete_post(): 
+    task_id = request.form.get("task_id")
+    print(task_id)
+
+# ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 
 
