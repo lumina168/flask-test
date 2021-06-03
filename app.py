@@ -203,7 +203,30 @@ def regist_post():
 # ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 
+@app.route("/login")
+def login_get():
+    return render_template("login.html")
 
+@app.route('/login', methods=["POST"])
+def login_post(): 
+    username = request.form.get("username")
+    password = request.form.get("password")
+# # dbファイルに接続
+    conn = sqlite3.connect("flasktest.db")
+    c = conn.cursor()
+# # SQL分でデータを挿入
+    c.execute("""select id from users where username =? and password =?""", (username, password))
+# # dbに変更を書き込み
+    user_id = c.fetchone()
+# # dbファイルとの接続を終了
+    c.close()
+#                 ↓Noneで大文字にしないとエラーが出る
+    if user_id is None:
+        return render_template("login.html")
+    else:
+        return redirect("/list")    
+
+# =================================================================-
 # flaskやるのにコレは必要↓おまじない②
 if __name__ == "__main__":
     app.run(debug=True)
