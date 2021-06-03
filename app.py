@@ -131,7 +131,17 @@ def add_post():
 # 6/2のやつ
 @app.route("/edit/<int:task_id>")
 def edit_get(task_id):
-    return render_template("edit.html",task_id=task_id)
+    # dbから編集前の値を引いてくる
+    # dbファイルに接続
+    conn = sqlite3.connect("flasktest.db")
+    c = conn.cursor()
+# SQL分でデータを取り出し
+    c.execute("select task from task where id = ?",(task_id,))
+# 空のリストを作成だけする
+    unedited_task= c.fetchone()[0]
+# dbファイルとの接続を終了
+    c.close()
+    return render_template("edit.html",task_id=task_id,unedited_task=unedited_task)
 
 @app.route('/edit', methods=["POST"])
 def edit_post(): 
