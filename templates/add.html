@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-
-<form action="/add" method="post">
-    <input type="text" name="task" size="60" maxlength="100" />
-    <input type="submit" value="押せ"/>
-</form>
+    <div class = "header">
+        <h1>🍌🍒Matsumura Haruka のHPだよ🍑💨</h1>
+        <p>今日やったこと書いてね~</p>
+        <!--↑↓おまじない③ ここに個別部分が挿入される -->
+        <form action="/add" method="post">
+        <input type="text" name="task" size="60" maxlength="100" />
+        <input type="submit" value="押せ"/>
+        </form>
+    </div>
 {% endblock %}

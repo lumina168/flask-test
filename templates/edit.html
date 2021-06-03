@@ -9,12 +9,13 @@
     ↑やり方の違い
 </form> -->
 
-<form action="/delet" method="post">
-    <p>編集したいid</p>
-    <input type="text" name="task_id">
+<form action="/edit" method="post">
+    <!-- <h1>編集したいタスクのid</h1> -->
+    <input type="hidden" value="{{task_id}}" name="task_id"/>
     <br/>
-    <p>編集後のタスク</p>
+    <h1>編集後のタスク</h1>
     <input type="text" name="task" size="60" maxlength="100" />
     <input type="submit" value="編集する"/>
 </form>
+
 {% endblock %}

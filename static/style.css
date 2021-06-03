@@ -1,0 +1,18 @@
+h1{
+    color: rgb(66, 59, 59));
+    padding-top: 30px;
+    
+}
+
+.header{
+    background-color: rgb(231, 156, 200);
+    color: rgb(68, 65, 59);
+    font-size: 30px;
+    text-align: center;
+}
+
+input{
+    padding: 20px;
+    font-size: 25px;
+    margin-bottom: 50px;
+}

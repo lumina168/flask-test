@@ -129,9 +129,9 @@ def add_post():
 
 # ==============================================================================
 # 6/2のやつ
-@app.route("/edit")
-def edit_get():
-    return render_template("edit.html")
+@app.route("/edit/<int:task_id>")
+def edit_get(task_id):
+    return render_template("edit.html",task_id=task_id)
 
 @app.route('/edit', methods=["POST"])
 def edit_post(): 
