@@ -1,12 +1,74 @@
-from flask import Flask, render_template,request,redirect
+from flask import Flask, render_template,request,redirect,session
 import sqlite3
 app = Flask(__name__)
-# flaskやるのにコレは必要おまじない①↑
 
-# ↓ここからそのままブラウザへ出力＃＃＃＃＃＃＃＃＃＃
-@app.route('/')
-def index():
-    return 'Index Pageだよ'
+app.secret_key="sunabacoyatsushiro"
+
+# flaskやるのにコレは必要おまじない①↑
+# ===    ↓テスト   ==========================================================================
+
+# /にURLで入力されたときなどにこちらが動く
+@app.route('/', methods=["GET"])
+def test_get():
+    title = 'アンケート'
+
+# /index.htmlのページで送信ボタンが押されたときなどにこちらが動く
+@app.route('/', methods=["POST"])
+def test_post(): 
+    name = request.form.get("name")
+    print(name)
+    # dbファイルに接続
+    conn = sqlite3.connect("flasktest.db")
+    c = conn.cursor()
+#     # SQL分でデータを取り出し
+    c.execute("""select id from users where username =? """,(username))
+    # dbに変更を書き込み
+    user_id = c.fetchone()
+# dbファイルとの接続を終了
+    c.close()
+
+    if user_id is None:
+        return render_template("index.html")
+    else:
+        return render_template('/list',title=title)
+
+
+
+
+
+
+# @app.route("/login")
+# def login_get():
+#     return render_template("login.html")
+
+# @app.route('/login', methods=["POST"])
+# def login_post(): 
+#     username = request.form.get("username")
+#     password = request.form.get("password")
+# # # dbファイルに接続
+#     conn = sqlite3.connect("flasktest.db")
+#     c = conn.cursor()
+# # # SQL分でデータを挿入
+#     c.execute("""select id from users where username =? and password =?""", (username, password))
+# # # dbに変更を書き込み
+#     user_id = c.fetchone()
+# # # dbファイルとの接続を終了
+#     c.close()
+# #                 ↓Noneで大文字にしないとエラーが出る
+#     if user_id is None:
+#         return render_template("login.html")
+#     else:
+#         return redirect("/list")    
+
+
+# ＝＝＝＝＝   ↑テスト     ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
+
+#①↓ここからそのままブラウザへ出力＃＃＃＃＃＃＃＃＃＃
+# @app.route('/')
+# def index():
+#     title = 'アンケート'
+#     return render_template('index.html',title=title)
 
 @app.route('/hello')
 def hello():
@@ -14,17 +76,11 @@ def hello():
 # ↑ここまでそのままブラウザへ出力
 # ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 
-
-
-
 # コレが解らない↓usernameどこから引っ張るんだっけ＃＃＃＃＃＃＃
 @app.route('/user/<username>')
 def profile(username):
     return "ここは、" + username + "さんのプロフィールネームです"
 # ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
-
-
-
 
 # index.htmlに結びつかせる↓＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 @app.route('/temptest')
@@ -37,8 +93,6 @@ def extendtest():
     return render_template('extendtest.html')
 # ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 
-
-# 
 # ＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
 @app.route('/weather')
 def weather():
@@ -86,6 +140,7 @@ def dbkadai():
 
 @app.route('/list')
 def list():
+    user_id=session["user_id"]
 # dbファイルに接続
     conn = sqlite3.connect("flasktest.db")
     c = conn.cursor()
@@ -102,7 +157,7 @@ def list():
     c.close()
 # 取り出したデータの中身を確認
     print(task_list)
-    return render_template('db..html', task_list=task_list)
+    return render_template('db..html', task_list=task_list,user_id=user_id)
 #return入れたら関数止まる
 # エラー分はしっかり見る（エラー分が出てくるから）
 
@@ -224,6 +279,7 @@ def login_post():
     if user_id is None:
         return render_template("login.html")
     else:
+        session["user_id"]= user_id
         return redirect("/list")    
 
 # =================================================================-

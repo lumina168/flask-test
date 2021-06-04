@@ -1,7 +1,6 @@
 h1{
     color: rgb(66, 59, 59));
     padding-top: 30px;
-    
 }
 
 .header{
@@ -9,6 +8,10 @@ h1{
     color: rgb(68, 65, 59);
     font-size: 30px;
     text-align: center;
+}
+
+h1{
+    text-align: center;  
 }
 
 input{
